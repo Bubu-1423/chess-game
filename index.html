@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnightX Arena - AI Chess Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2 class="sr-only">KnightX Arena — AI-powered chess platform with playable board, AI coach, dashboard, and game analysis</h2>
+
+    <nav>
+        <div class="logo">KnightX <span>Arena</span></div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showPage('dashboard')">Dashboard</button>
+            <button class="nav-tab" onclick="showPage('game')">Play</button>
+            <button class="nav-tab" onclick="showPage('analysis')">Analysis</button>
+        </div>
+        <div class="nav-right">
+            <div class="xp-pill">⚡ 2,840 XP</div>
+            <div class="level-badge">12</div>
+        </div>
+    </nav>
+
+    <!-- DASHBOARD -->
+    <div id="page-dashboard" class="page active">
+        <div class="dash">
+            <div class="dash-hero">
+                <div class="avatar">A</div>
+                <div class="dash-info">
+                    <h2>Biswajit pati</h2>
+                    <p>Knight Class · Joined 3 months ago · 🔥 14-day streak</p>
+                </div>
+                <div class="rating-badge">
+                    <div class="rating-num">1,247</div>
+                    <div class="rating-label">ELO Rating</div>
+                </div>
+            </div>
+
+            <div class="dash-grid">
+                <div class="stat-card"><div class="stat-icon">♟️</div><div class="stat-val">342</div><div class="stat-label">Games Played</div></div>
+                <div class="stat-card"><div class="stat-icon">🏆</div><div class="stat-val">58%</div><div class="stat-label">Win Rate</div></div>
+                <div class="stat-card"><div class="stat-icon">🧠</div><div class="stat-val">87%</div><div class="stat-label">Avg Accuracy</div></div>
+                <div class="stat-card"><div class="stat-icon">⚡</div><div class="stat-val">2,840</div><div class="stat-label">Total XP</div></div>
+            </div>
+
+            <div class="dash-row">
+                <div class="panel">
+                    <div class="panel-title">♟ Play a Game</div>
+                    <button class="mode-btn active" onclick="startGame('ai');showPage('game')"><span class="mode-icon">🤖</span><div><div>Play vs AI</div><div style="font-size:10px;color:var(--text3)">Stockfish powered</div></div></button>
+                    <button class="mode-btn" onclick="showToast('Multiplayer coming soon!')"><span class="mode-icon">🌐</span><div><div>Play Online</div><div style="font-size:10px;color:var(--text3)">Real-time matchmaking</div></div></button>
+                    <div style="margin-top:10px">
+                        <div class="panel-title">⏱ Time Control</div>
+                        <div style="display:flex;gap:6px;flex-wrap:wrap">
+                            <span class="diff-chip diff-easy active" onclick="selectTime(this,'bullet')">⚡ Bullet 1+0</span>
+                            <span class="diff-chip diff-medium" onclick="selectTime(this,'blitz')">🔥 Blitz 5+0</span>
+                            <span class="diff-chip diff-hard" onclick="selectTime(this,'rapid')">🏆 Rapid 10+0</span>
+                        </div>
+                    </div>
+                    <div style="margin-top:10px">
+                        <div class="panel-title">🤖 AI Difficulty</div>
+                        <div style="display:flex;gap:6px">
+                            <span class="diff-chip diff-easy" onclick="selectDiff(this,1)">Beginner</span>
+                            <span class="diff-chip diff-medium active" onclick="selectDiff(this,5)">Medium</span>
+                            <span class="diff-chip diff-hard" onclick="selectDiff(this,10)">Expert</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex;flex-direction:column;gap:10px">
+                    <div class="panel">
+                        <div class="panel-title">🏅 Daily Challenges</div>
+                        <div class="challenge-item"><span class="challenge-done">✓</span><span style="flex:1">Win a game with White</span><span style="color:var(--gold);font-size:11px">+50 XP</span></div>
+                        <div class="challenge-item"><span style="color:var(--text3)">○</span><span style="flex:1">Play 3 games today</span><span style="color:var(--gold);font-size:11px">+80 XP</span></div>
+                        <div class="challenge-item"><span style="color:var(--text3)">○</span><span style="flex:1">Achieve 90%+ accuracy</span><span style="color:var(--gold);font-size:11px">+120 XP</span></div>
+                        <div class="xp-bar-wrap">
+                            <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--text3)"><span>Level 12 Progress</span><span>2,840 / 3,000 XP</span></div>
+                            <div class="xp-bar-track"><div class="xp-bar-fill" style="width:94%"></div></div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-title">🏆 Leaderboard</div>
+                        <div class="leaderboard-item"><span class="lb-rank gold">1</span><span class="lb-name">Magnus_K</span><span class="lb-rating">1,892</span></div>
+                        <div class="leaderboard-item"><span class="lb-rank silver">2</span><span class="lb-name">Priya_chess</span><span class="lb-rating">1,754</span></div>
+                        <div class="leaderboard-item"><span class="lb-rank bronze">3</span><span class="lb-name">RajDeep99</span><span class="lb-rating">1,612</span></div>
+                        <div class="leaderboard-item"><span class="lb-rank" style="color:var(--teal)">12</span><span class="lb-name" style="color:var(--teal2)">You (Arjun)</span><span class="lb-rating" style="color:var(--teal)">1,247</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GAME PAGE -->
+    <div id="page-game" class="page">
+        <div class="game-layout">
+            <div class="game-main">
+                <div class="player-bar" style="max-width:392px">
+                    <span style="font-size:18px">🤖</span>
+                    <div class="player-name">Stockfish AI <span style="font-size:10px;color:var(--text3)">(Medium)</span></div>
+                    <div class="player-rating" style="font-size:11px;color:var(--text3)">ELO ~1400</div>
+                    <div class="player-timer timer-inactive" id="timer-black">5:00</div>
+                </div>
+                <div class="board-wrap">
+                    <div class="board" id="board"></div>
+                </div>
+                <div class="board-coords-files"><span>a</span><span>b</span><span>c</span><span>d</span><span>e</span><span>f</span><span>g</span><span>h</span></div>
+                <div class="player-bar" style="max-width:392px">
+                    <span style="font-size:18px">👤</span>
+                    <div class="player-name">Arjun Mehta</div>
+                    <div class="player-rating">1,247</div>
+                    <div class="player-timer timer-active" id="timer-white">5:00</div>
+                </div>
+            </div>
+
+            <div class="game-sidebar">
+                <div class="sidebar-tabs">
+                    <button class="sidebar-tab active" onclick="setSidebarTab('coach',this)">AI Coach</button>
+                    <button class="sidebar-tab" onclick="setSidebarTab('moves',this)">Moves</button>
+                </div>
+
+                <div id="sidebar-coach" class="sidebar-content">
+                    <div class="ai-coach-header">
+                        <div class="ai-avatar">🧠</div>
+                        <div><div class="ai-name">KnightX Coach</div><div class="ai-status">Watching your game...</div></div>
+                    </div>
+                    <div class="coach-msg" id="coach-msg">Make your first move! I'll analyze each position and give you hints. Click any piece to see legal moves.</div>
+                    <div class="eval-bar-wrap">
+                        <div style="font-size:10px;color:var(--text3);margin-bottom:4px">Position Evaluation</div>
+                        <div class="eval-bar"><div class="eval-fill" id="eval-fill" style="width:50%"></div></div>
+                        <div class="eval-label"><span>White</span><span id="eval-text">0.0</span><span>Black</span></div>
+                    </div>
+                    <div style="font-size:10px;color:var(--text3);margin-bottom:6px">BEST MOVE SUGGESTION</div>
+                    <div style="background:var(--surface);border:1px solid var(--border2);border-radius:var(--r2);padding:8px 10px;font-size:12px;font-weight:600;color:var(--gold2);margin-bottom:10px" id="best-move-display">Make a move first</div>
+                    <div style="font-size:10px;color:var(--text3);margin-bottom:6px">GAME STATS</div>
+                    <div style="font-size:12px;display:flex;flex-direction:column;gap:5px">
+                        <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Moves played</span><span id="moves-count" style="font-weight:600">0</span></div>
+                        <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Blunders</span><span id="blunder-count" style="font-weight:600;color:var(--danger)">0</span></div>
+                        <div style="display:flex;justify-content:space-between"><span style="color:var(--text2)">Accuracy</span><span id="accuracy-disp" style="font-weight:600;color:var(--success)">—</span></div>
+                    </div>
+                </div>
+
+                <div id="sidebar-moves" class="sidebar-content" style="display:none">
+                    <div class="move-list" id="move-list-container"></div>
+                    <div style="text-align:center;color:var(--text3);font-size:12px;padding:20px 0" id="move-list-empty">No moves yet. Start playing!</div>
+                </div>
+
+                <div class="ctrl-row">
+                    <button class="ctrl-btn" title="Undo" onclick="undoMove()">↩</button>
+                    <button class="ctrl-btn" title="Hint" onclick="showHint()">💡</button>
+                    <button class="ctrl-btn" title="Flip board" onclick="flipBoard()">↕</button>
+                    <button class="ctrl-btn" title="Analyze" onclick="showPage('analysis')">📊</button>
+                    <button class="ctrl-btn" title="New game" onclick="resetGame()" style="color:var(--danger)">✕</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ANALYSIS PAGE -->
+    <div id="page-analysis" class="page">
+        <div class="analysis-wrap">
+            <div style="font-family:'Cinzel',serif;font-size:16px;font-weight:600;color:var(--gold2);margin-bottom:12px">Game Analysis</div>
+            <div class="analysis-header">
+                <div class="accuracy-ring">
+                    <svg width="60" height="60" viewBox="0 0 60 60">
+                        <circle cx="30" cy="30" r="24" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="5"/>
+                        <circle cx="30" cy="30" r="24" fill="none" stroke="url(#ag)" stroke-width="5" stroke-dasharray="150.8" stroke-dashoffset="22" stroke-linecap="round"/>
+                        <defs><linearGradient id="ag" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#c9a84c"/><stop offset="100%" style="stop-color:#4caf7d"/></linearGradient></defs>
+                    </svg>
+                    <div class="accuracy-label"><div class="accuracy-num">85%</div><div class="accuracy-txt">accuracy</div></div>
+                </div>
+                <div style="flex:1">
+                    <div style="font-size:13px;font-weight:600;margin-bottom:4px">Game vs Stockfish (Medium)</div>
+                    <div style="font-size:11px;color:var(--text3);margin-bottom:8px">30 moves · Blitz 5+0 · Result: <span style="color:var(--success)">You Won!</span></div>
+                    <div style="font-size:11px;color:var(--text2);line-height:1.5">Opening: <span style="color:var(--gold2)">Sicilian Defense, Najdorf Variation</span></div>
+                </div>
+                <button class="ctrl-btn" style="width:auto;padding:8px 16px;font-size:12px;font-family:'Outfit',sans-serif" onclick="showPage('game')">↩ Back</button>
+            </div>
+
+            <div class="mistake-grid">
+                <div class="mistake-card"><div class="mistake-count" style="color:var(--success)">2</div><div class="mistake-type">Inaccuracies</div></div>
+                <div class="mistake-card"><div class="mistake-count" style="color:var(--warn)">1</div><div class="mistake-type">Mistakes</div></div>
+                <div class="mistake-card"><div class="mistake-count" style="color:var(--danger)">0</div><div class="mistake-type">Blunders</div></div>
+            </div>
+
+            <div class="analysis-board-wrap">
+                <div>
+                    <div class="mini-board" id="mini-board"></div>
+                    <div style="font-size:10px;color:var(--text3);text-align:center;margin-top:6px">Starting position</div>
+                </div>
+                <div class="move-analysis">
+                    <div style="font-size:10px;color:var(--text3);margin-bottom:8px;letter-spacing:.5px">MOVE-BY-MOVE BREAKDOWN</div>
+                    <div class="move-analysis-item"><div class="move-quality q-best"></div><div><div style="font-weight:600">1. e4 e5</div><div style="color:var(--text3);font-size:11px">Best opening — controls center</div></div></div>
+                    <div class="move-analysis-item"><div class="move-quality q-best"></div><div><div style="font-weight:600">2. Nf3 Nc6</div><div style="color:var(--text3);font-size:11px">Excellent development</div></div></div>
+                    <div class="move-analysis-item"><div class="move-quality q-inaccuracy"></div><div><div style="font-weight:600" style="color:#8888ff">7. Bd3?!</div><div style="color:#8888ff;font-size:11px">Inaccuracy — Bc4 was better</div></div></div>
+                    <div class="move-analysis-item"><div class="move-quality q-mistake"></div><div><div style="font-weight:600">12. Qd2?</div><div style="color:var(--warn);font-size:11px">Mistake — loses tempo</div></div></div>
+                    <div class="move-analysis-item"><div class="move-quality q-best"></div><div><div style="font-weight:600">18. Rxf7!</div><div style="color:var(--success);font-size:11px">Brilliant sacrifice — best move!</div></div></div>
+                    <div class="move-analysis-item"><div class="move-quality q-best"></div><div><div style="font-weight:600">24. Qh5#</div><div style="color:var(--success);font-size:11px">Checkmate!</div></div></div>
+                </div>
+            </div>
+
+            <div class="phase-chart">
+                <div class="panel-title">📈 Evaluation over time</div>
+                <div class="mini-bar-chart" id="eval-chart"></div>
+                <div style="display:flex;justify-content:space-between;font-size:9px;color:var(--text3);margin-top:4px"><span>Opening</span><span>Middlegame</span><span>Endgame</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
